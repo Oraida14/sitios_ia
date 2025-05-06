@@ -1,0 +1,930 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background-color: #2d2d2d;
+    color: white;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-image: url('img/tren_fondo_gris.png');
+    background-size: cover;
+    background-position: center;
+    z-index: 1; /* Aseguramos que la imagen de fondo esté detrás */
+}
+
+/* Logo arriba a la izquierda */
+.logo {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 100px;
+    height: auto;
+}
+
+/* Imágenes flotantes (puedes cambiar el tamaño desde width y height) */
+.floating-img {
+    position: absolute;
+    width: 50px;  /* Ancho ajustable */
+    height: auto; /* Mantiene proporción */
+    transition: transform 0.3s ease;
+}
+
+/* medidor de gasto*/
+#img1 {
+    position: absolute;
+    top: 12vh;   /* 18% de la altura de la ventana (viewport) */
+    left: 26vw;  /* 26% del ancho de la ventana (viewport) */
+    width: 14vw; /* El ancho de la imagen es el 10% del ancho de la ventana */
+    height: auto; /* Mantener la proporción de la imagen */
+}
+
+#img2 {
+    position: absolute;
+    top: 9vh;   /* ~600px de 1080px, proporcionalmente */
+    left: 40.6vw; /* ~300px de 1920px, proporcionalmente */
+    width: 14.5vw;  /* El ancho de la imagen es el 8% del ancho de la ventana */
+    height: auto; /* Mantener la proporción de la imagen */
+}
+
+#img3 {
+    position: absolute;
+    top: 4vh;   /* ~400px de 1080px */
+    left: 76.5vw; /* ~1200px de 1920px */
+    width: 25vw; /* El ancho de la imagen es el 12% del ancho de la ventana */
+    height: auto; /* Mantener la proporción de la imagen */
+}
+
+#img4 {
+    position: absolute;
+    top: 14.2vh;   /* ~400px de 1080px */
+    left: 47.4vw; /* ~1200px de 1920px */
+    width: 1vw; /* El ancho de la imagen es el 12% del ancho de la ventana */
+    height: auto; /* Mantener la proporción de la imagen */
+}
+
+/* reload*/
+#img5 {
+    position: absolute;
+    top: 19.8vh;   /* ~400px de 1080px */
+    left: 33.2vw; /* ~1200px de 1920px */
+    width: 0.9vw; /* El ancho de la imagen es el 12% del ancho de la ventana */
+    height: auto; /* Mantener la proporción de la imagen */
+}
+
+/* flujo centro*/
+#img6 {
+    position: absolute;
+    top: 52vh;
+    left: 40.9vw;
+    width: 7.2vw;
+    height: auto;
+    transform: rotate(-15deg); /* Girar la imagen 15 grados */
+    transform-origin: center; /* El punto de rotación es el centro de la imagen */
+}
+
+
+/* flujo red*/
+#img7 {
+    position: absolute;
+    top: 75vh;
+    left: 12.2vw;
+    width: 7.2vw;
+    height: auto;
+    transform: rotate(-56deg); /* Girar la imagen 15 grados */
+    transform-origin: center; /* El punto de rotación es el centro de la imagen */
+}
+
+/* cerrad desfogue */
+#img8 {
+    position: absolute;
+    top: 56vh;
+    left: 58vw;
+    width: 2.2vw;
+    height: auto;
+    transform: rotate(180deg); /* Girar la imagen 15 grados */
+    transform-origin: center; /* El punto de rotación es el centro de la imagen */
+}
+
+/* señal*/
+#img9 {
+    position: absolute;
+    top:30vh;   /* ~400px de 1080px */
+    left: 88.8vw; /* ~1200px de 1920px */
+    width: 5.9vw; /* El ancho de la imagen es el 12% del ancho de la ventana */
+    height: auto; /* Mantener la proporción de la imagen */
+}
+
+
+/* Etiquetas fratos (Gasto, Presión, Fecha) */
+
+/* Dato Gasto */
+#label1 {
+    position: absolute;
+    top: 18vh;    /* Cerca de img1 */
+    left: 30vw; /* Cerca de img1 */
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    background: rgba(131, 119, 119, 0);
+    padding: 4px 8px;
+    border-radius: 5px;
+   
+}
+
+/* Dato presión */
+#label2 {
+    position: absolute;
+    top: 20.1vh;    /* Cerca de img2 */
+    left: 44.55vw; /* Cerca de img2 */
+    color: rgb(1, 65, 240);
+    font-size: 16.9px;
+    background: rgba(26, 49, 92, 0);
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+ /* Actualización fecha */
+#label3 {
+    position: absolute;
+    top: 90vh;    /* Cerca de img3 */
+    left: 74vw; /* Cerca de img3 */
+    color: rgba(224, 240, 6, 0.788);
+    font-size: 22px;
+    background: rgba(13, 78, 163, 0.411);
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+/* comunicación */
+#label4 {
+    position: absolute;
+    top: 43vh;    /* Cerca de img3 */
+    left: 84vw; /* Cerca de img3 */
+    color: rgba(224, 240, 6, 0.788);
+    font-size: 18px;
+    background: rgba(13, 78, 163, 0.808);
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+.titulo-pozo {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #000;
+    font-size: 36px;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 10px 20px;
+    border-radius: 12px;
+    z-index: 10;
+}
+
+
+/* From Uiverse.io by Praashoo7 */ 
+/* Teenage Engineering [EP-133 K.O. II] - Buttons */
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 1.25em;
+  }
+  
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5em;
+  }
+  .button_pair {
+    display: flex;
+    column-gap: 1.5em;
+  }
+  .button_pair1 {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.9em;
+  }
+  
+  
+  
+  .button1 {
+    width: 5.7em;
+    height: 5.7em;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #c7c3c0;
+    box-shadow: rgba(0, 0, 0, 0.377) 10px 10px 8px,
+      #ffffff 1.5px 1.5px 2px 0px inset, #c7c3c0 -3.2px -3.2px 8px 0px inset;
+    cursor: pointer;
+    font-family: Montserrat;
+    transition: 0.1s ease-in-out;
+    top: 75px; /* Coloca el botón a 20px desde la parte superior */
+    left: 800px; /* Colócalo a 20px desde la parte izquierda */
+    z-index: 10;
+  }
+  .button2 {
+    width: 5.7em;
+    height: 5.7em;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #c7c3c0;
+    box-shadow: rgba(0, 0, 0, 0.377) 10px 10px 8px,
+      #ffffff 1.5px 1.5px 2px 0px inset, #c7c3c0 -3.2px -3.2px 8px 0px inset;
+    cursor: pointer;
+    font-family: Montserrat;
+    transition: 0.1s ease-in-out;
+    position: fixed;
+    top: 300px; /* Coloca el botón a 20px desde la parte superior */
+    left: 1610px; /* Colócalo a 20px desde la parte izquierda */
+    z-index: 10;
+  }
+  .svg1 {
+    fill: #5f5f5f;
+    width: 25px;
+    height: 25px;
+    transition: 0.1s ease-in-out;
+  }
+  .svg2 {
+    fill: #5f5f5f;
+    width: 25px;
+    height: 25px;
+    transition: 0.1s ease-in-out;
+  }
+  
+  .button3 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 5.7em;
+    height: 5.7em;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #644d48;
+    box-shadow: rgba(2, 2, 2, 0.377) 10px 10px 8px, #866e62 2px 2px 10px 0px inset,
+      #070707 -4px -4px 1px 0px inset;
+    cursor: pointer;
+    font-family: Montserrat;
+    transition: 0.1s ease-in-out;
+    position: fixed;
+    top: 180px; /* Coloca el botón a 20px desde la parte superior */
+    left: 1700px; /* Colócalo a 20px desde la parte izquierda */
+    z-index: 10;
+  }
+
+  /* boton comunicación */
+  .button4 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 5.7em;
+    height: 5.7em;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #545251;
+    box-shadow: rgba(2, 2, 2, 0.377) 10px 10px 8px, #866e62 2px 2px 10px 0px inset,
+      #070707 -4px -4px 1px 0px inset;
+    cursor: pointer;
+    font-family: Montserrat;
+    transition: 0.1s ease-in-out;
+    position: fixed;
+    top: 180px; /* Coloca el botón a 20px desde la parte superior */
+    left: 1600px; /* Colócalo a 20px desde la parte izquierda */
+    z-index: 10;
+    
+  }
+  
+  .button_text {
+    color: white;
+    padding-top: 0.9em;
+    letter-spacing: 0.075em;
+    font-size: 0.85em;
+    transition: 0.1s ease-in-out;
+  }
+  
+  .text {
+    font-family: Montserrat;
+    text-align: center;
+    font-size: 0.65em;
+  }
+  
+  
+ 
+  .button3:active {
+    box-shadow: rgba(0, 0, 0, 0.377) 0px 0px 0px, inset 0.5px 0.5px 4px #000000,
+      #d42a02 -3.2px -3.2px 8px 0px inset;
+  }
+  .button3:active .button_text {
+    transform: translateY(0.5px);
+  }
+  .button4:active {
+    box-shadow: rgba(0, 0, 0, 0.377) 0px 0px 0px, inset 0.5px 0.5px 4px #000000,
+      #811612 -3.2px -3.2px 8px 0px inset;
+  }
+  .button4:active .button_text {
+    transform: translateY(0.5px);
+  }
+  /* Otras clases de botones también pueden tener un z-index alto */
+.button1, .button2, .button3, .button4 {
+    z-index: 10; /* Aseguramos que todos los botones estén por encima */
+}
+
+.button1:active,
+.button2:active {
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.685),
+                inset -2px -2px 5px rgb(196, 26, 26);
+    transform: translateY(1px);
+}
+
+/* From Uiverse.io by Cksunandh */ 
+.orbital {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 0 auto;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-radius: 110px;
+  }
+  .ringOne {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    bottom: -10px;
+    left: -10px;
+    border-radius: 200px;
+    box-shadow: -5px -5px 15px rgba(15, 180, 231, 0.3);
+  }
+  .ringTwo {
+    background: #161616; /* Old browsers */
+    background: -moz-linear-gradient(top, #161616 0%, #3d3d3d 100%); /* FF3.6+ */
+    background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0%, #161616),
+      color-stop(100%, #3d3d3d)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+      top,
+      #161616 0%,
+      #3d3d3d 100%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(
+      top,
+      #161616 0%,
+      #3d3d3d 100%
+    ); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #161616 0%, #3d3d3d 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #161616 0%, #3d3d3d 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#161616', endColorstr='#3d3d3d',GradientType=0 ); /* IE6-9 */
+  
+    border: 1px solid #444;
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    bottom: -25px;
+    left: -25px;
+    border-radius: 200px;
+    z-index: -2;
+  }
+  .spin {
+    margin: 0 auto;
+    background: #91ffff; /* Old browsers */
+    background: -moz-radial-gradient(
+      20% 20%,
+      ellipse cover,
+      #91ffff 0%,
+      #920a51 24%,
+      #000000 74%,
+      #000000 100%
+    ); /* FF3.6+ */
+    background: -webkit-gradient(
+      radial,
+      20% 20%,
+      0px,
+      20% 20%,
+      100%,
+      color-stop(0%, #91ffff),
+      color-stop(24%, #0fb4e7),
+      color-stop(74%, #000000),
+      color-stop(100%, #000000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(
+      20% 20%,
+      ellipse cover,
+      #91ffff 0%,
+      #0fb4e7 24%,
+      #000000 74%,
+      #000000 100%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(
+      20% 20%,
+      ellipse cover,
+      #91ffff 0%,
+      #0fb4e7 24%,
+      #000000 74%,
+      #000000 100%
+    ); /* Opera 12+ */
+    background: -ms-radial-gradient(
+      20% 20%,
+      ellipse cover,
+      #91ffff 0%,
+      #0fb4e7 24%,
+      #000000 74%,
+      #000000 100%
+    ); /* IE10+ */
+    background: radial-gradient(
+      ellipse at 20% 20%,
+      #91ffff 0%,
+      #0fb4e7 24%,
+      #000000 74%,
+      #000000 100%
+    ); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#91ffff', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  
+    border-radius: 110px;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  @-webkit-keyframes spinRotation {
+    from {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @-moz-keyframes spinRotation {
+    from {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes spinRotation {
+    from {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  .spin {
+    -webkit-animation-name: spinRotation;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spinRotation;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    animation-name: spinRotation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  .ringTwo {
+    -webkit-animation-name: spinRotation;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spinRotation;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    animation-name: spinRotation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  .ringThree {
+    color: #fff;
+    background-color: #ccc;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;
+    border-radius: 110px;
+    background: #575b60; /* Old browsers */
+    background: -moz-radial-gradient(
+      center,
+      ellipse cover,
+      #575b60 1%,
+      #000000 100%
+    ); /* FF3.6+ */
+    background: -webkit-gradient(
+      radial,
+      center center,
+      0px,
+      center center,
+      100%,
+      color-stop(1%, #575b60),
+      color-stop(100%, #000000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(
+      center,
+      ellipse cover,
+      #575b60 1%,
+      #000000 100%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(
+      center,
+      ellipse cover,
+      #575b60 1%,
+      #000000 100%
+    ); /* Opera 12+ */
+    background: -ms-radial-gradient(
+      center,
+      ellipse cover,
+      #575b60 1%,
+      #000000 100%
+    ); /* IE10+ */
+    background: radial-gradient(
+      ellipse at center,
+      #575b60 1%,
+      #000000 100%
+    ); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#575b60', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    box-shadow:
+      -1px 0px 0px #333,
+      0px -1px 0px #333;
+  }
+  .core {
+    color: #ccc;
+    background-color: #ccc;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    z-index: 2;
+    border-radius: 110px;
+    background: #575b60; /* Old browsers */
+    background: -moz-radial-gradient(
+      center,
+      ellipse cover,
+      #575b60 1%,
+      #000000 100%
+    ); /* FF3.6+ */
+    background: -webkit-gradient(
+      radial,
+      center center,
+      0px,
+      center center,
+      100%,
+      color-stop(1%, #575b60),
+      color-stop(100%, #000000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(
+      center,
+      ellipse cover,
+      #575b60 1%,
+      #000000 100%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(
+      center,
+      ellipse cover,
+      #575b60 1%,
+      #000000 100%
+    ); /* Opera 12+ */
+    background: -ms-radial-gradient(
+      center,
+      ellipse cover,
+      #575b60 1%,
+      #000000 100%
+    ); /* IE10+ */
+    background: radial-gradient(
+      ellipse at center,
+      #575b60 1%,
+      #000000 100%
+    ); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#575b60', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    box-shadow:
+      -1px 0px 0px #666,
+      0px -1px 0px #666;
+  }
+  .core:active {
+    color: #fff;
+    background: #373a3d; /* Old browsers */
+    background: -moz-radial-gradient(
+      center,
+      ellipse cover,
+      #373a3d 1%,
+      #000000 100%
+    ); /* FF3.6+ */
+    background: -webkit-gradient(
+      radial,
+      center center,
+      0px,
+      center center,
+      100%,
+      color-stop(1%, #373a3d),
+      color-stop(100%, #000000)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(
+      center,
+      ellipse cover,
+      #373a3d 1%,
+      #000000 100%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(
+      center,
+      ellipse cover,
+      #373a3d 1%,
+      #000000 100%
+    ); /* Opera 12+ */
+    background: -ms-radial-gradient(
+      center,
+      ellipse cover,
+      #373a3d 1%,
+      #000000 100%
+    ); /* IE10+ */
+    background: radial-gradient(
+      ellipse at center,
+      #373a3d 1%,
+      #000000 100%
+    ); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#373a3d', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  }
+  
+  /* Button Container */
+  .orbital {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 0 auto;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-radius: 110px;
+    transition: transform 0.3s ease-in-out; /* Smooth hover effect */
+  }
+  
+  .orbital:hover {
+    transform: scale(1.1); /* Slightly increases size on hover */
+  }
+  
+  /* Outer Ring */
+  .ringOne {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    bottom: -10px;
+    left: -10px;
+    border-radius: 200px;
+    box-shadow: -5px -5px 15px rgba(15, 180, 231, 0.3);
+  }
+  
+  /* Middle Ring */
+  .ringTwo {
+    border: 1px solid #444;
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    bottom: -25px;
+    left: -25px;
+    border-radius: 200px;
+    z-index: -2;
+    background: linear-gradient(to bottom, #161616 0%, #3d3d3d 100%);
+    animation: rotateClockwise 4s infinite linear; /* Rotate clockwise */
+  }
+  
+  /* Core */
+  .core {
+    color: #ccc;
+    background-color: #ccc;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    z-index: 2;
+    border-radius: 110px;
+    background: radial-gradient(ellipse at center, #575b60 1%, #000000 100%);
+    box-shadow:
+      -1px 0px 0px #666,
+      0px -1px 0px #666;
+    animation: pulse 2s infinite ease-in-out; /* Pulse animation */
+  }
+  
+  .core:hover {
+    background: radial-gradient(ellipse at center, #373a3d 1%, #000000 100%);
+  }
+  
+  .core p {
+    text-align: center;
+    margin-top: 40%;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bolder;
+    text-shadow: -1px -1px 0px #444;
+  }
+  
+  /* Spin Animation */
+  .spin {
+    background: radial-gradient(
+      ellipse at 20% 20%,
+      #91ffff 0%,
+      #0fb4e7 24%,
+      #000000 100%
+    );
+    border-radius: 110px;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    animation: rotateAntiClockwise 6s infinite linear; /* Rotate anticlockwise */
+  }
+  
+  /* Animations */
+  
+  /* Rotate clockwise */
+  @keyframes rotateClockwise {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Rotate anticlockwise */
+  @keyframes rotateAntiClockwise {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  
+  /* Pulse animation for the core */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 5px #666;
+    }
+    50% {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #9af803;
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 5px #666;
+    }
+  }
+  .orbital {
+    width: 30px;
+    height: 30px;
+    position: absolute; /* Cambiado de relative a absolute */
+    top: 250px;  /* Valor inicial */
+    left: 1350px; /* Valor inicial */
+    cursor: pointer;
+    user-select: none;
+    border-radius: 110px;
+  }
+  
+
+  #checkbox {
+    display: none;
+  }
+  
+  .switch {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    background-color: rgb(99, 99, 99);
+    border-radius: 50%;
+    z-index: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgb(126, 126, 126);
+    box-shadow: 0px 0px 3px rgb(2, 2, 2) inset;
+  }
+  
+  .switch svg {
+    width: 1.2em;
+  }
+  
+  .switch svg path {
+    fill: rgb(48, 48, 48);
+  }
+  
+  #checkbox:checked + .switch {
+    box-shadow: 0px 0px 1px rgb(151, 243, 255) inset,
+      0px 0px 2px rgb(151, 243, 255) inset, 0px 0px 10px rgb(151, 243, 255) inset,
+      0px 0px 40px rgb(151, 243, 255), 0px 0px 100px rgb(151, 243, 255),
+      0px 0px 5px rgb(151, 243, 255);
+    border: 2px solid rgb(255, 255, 255);
+    background-color: rgb(146, 180, 184);
+  }
+  
+  #checkbox:checked + .switch svg {
+    filter: drop-shadow(0px 0px 5px rgb(151, 243, 255));
+  }
+  
+  #checkbox:checked + .switch svg path {
+    fill: rgb(255, 255, 255);
+  }
+  
+   /* Estilos para el interruptor */
+   .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
