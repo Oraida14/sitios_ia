@@ -52,7 +52,7 @@ canvas {
     position: absolute;
     top: 12vh;   /* 18% de la altura de la ventana (viewport) */
     left: 26vw;  /* 26% del ancho de la ventana (viewport) */
-    width: 14vw; /* El ancho de la imagen es el 10% del ancho de la ventana */
+    width: 15vw; /* El ancho de la imagen es el 10% del ancho de la ventana */
     height: auto; /* Mantener la proporción de la imagen */
 }
 
