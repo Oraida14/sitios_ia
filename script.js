@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const estadoTexto = significado[estadoCodigo] || "Estado desconocido";
 
                 // Actualiza el DOM con los datos
-                document.getElementById('label1').innerText = `Gasto: ${gasto}`;
+                document.getElementById('label1').innerText = `Q = ${gasto}`;
                 document.getElementById('label2').innerText = `Presión: ${presion}`;
                 document.getElementById('label3').innerText = `Actualización: ${fecha}`;
                 document.getElementById('label4').innerText = `${estadoTexto}`;
